@@ -53,18 +53,10 @@ void loop() {
     ledEncendido = false;
   }
 }
-import RPi.GPIO as GPIO
-import time
-import random
-import os
 
 pir = 14
 led_amarillo = 15
 led_rojo = 18
-
-contrasenas = {'color': 'azul', 'flor': 'amapola','animal': 'perro','ciudad': 'madrid','colegio': 'salesianos'}
-
-claves = list(contrasenas.keys())
 
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(pir, GPIO.IN)
