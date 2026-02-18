@@ -1,0 +1,74 @@
+import RPi.GPIO as GPIO
+import time
+
+PULSADOR = 17
+LED_AMARILLO = 27
+LED_ROJO = 22
+ZUMBADOR = 23
+
+contador = 0
+clave = "1234"
+clave_cambiada = False
+estado_anterior = 0  
+
+GPIO.setmode(GPIO.BCM)
+GPIO.setup(PULSADOR, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+GPIO.setup(LED_AMARILLO, GPIO.OUT)
+GPIO.setup(LED_ROJO, GPIO.OUT)
+GPIO.setup(ZUMBADOR, GPIO.OUT)
+
+print("Alarma activada.")
+
+try:
+    while True:
+        estado_actual = GPIO.input(PULSADOR)
+
+        if not (estado_anterior == 0 and estado_actual == 1):
+            estado_anterior = estado_actual
+            time.sleep(0.05)
+            continue
+
+        contador += 1
+        print("Pulsación número:", contador)
+
+        if contador == 1:
+            GPIO.output(LED_AMARILLO, True)
+
+        elif contador == 2:
+            GPIO.output(LED_AMARILLO, False)
+            GPIO.output(LED_ROJO, True)
+
+        elif contador == 3:
+            GPIO.output(LED_ROJO, False)
+
+            GPIO.output(ZUMBADOR, True)
+            time.sleep(5)
+            GPIO.output(ZUMBADOR, False)
+
+            entrada = input("Introduce la clave para desactivar la alarma: ")
+
+            if entrada == clave:
+                print("ALARMA DESACTIVADA")
+
+                if not clave_cambiada:
+                    while True:
+                        nueva = input("Nueva clave (6 caracteres y 1 no alfanumérico): ")
+                        if len(nueva) == 6 and not nueva.isalnum():
+                            clave = nueva
+                            clave_cambiada = True
+                            print("Clave cambiada correctamente")
+                            break
+                        else:
+                            print("Clave NO válida")
+            else:
+                print("AVISANDO A LA POLICÍA")
+
+            contador = 0  # reset del ciclo
+
+        estado_anterior = estado_actual
+
+except KeyboardInterrupt:
+    print("\nPrograma detenido por el usuario")
+
+finally:
+    GPIO.cleanup()
