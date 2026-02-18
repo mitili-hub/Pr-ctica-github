@@ -1,11 +1,23 @@
 # Sistema Operativo - Proyecto Alarma
 
-#Descripción
+\#Descripción
 Repositorio del proyecto donde desarrollo prácticas con Arduino y buzzer.
 
-#Estructura
-- codigo_arduino
-- sistema_operativo
+\#Estructura
 
-#Autor
-Luis C1
+* codigo\_arduino
+* sistema\_operativo
+
+\#Autor
+Luis CF
+
+
+
+
+
+1. Cambios generados
+
+Se han añadido partes al código donde se añaden una serie de componentes y funciones
+
+
+
