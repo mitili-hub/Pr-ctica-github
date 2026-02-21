@@ -27,10 +27,6 @@ Durante el desarrollo del proyecto se han implementado las siguientes mejoras:
 - GitHub Desktop
 - Control de versiones con Git
 
----
-
-# Estructura del proyecto
-
 
 
 
